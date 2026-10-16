@@ -10,14 +10,20 @@ of what was run. Work on the `backbone.giraffe` branch.
 All under `frameworks/keyed/`:
 
 - `backbone.giraffe` — the addition (see below)
-- `svelte`, `svelte-classic`
+- `svelte`
 - `react-hooks`, `react-compiler-hooks`
-- `marionette`, `marionette-backbone`
-- era peers: `knockout`, `ember`, `ractive`, `riot`, `mithril`
+- `marionette-backbone` — Marionette on Backbone
+- era lineages: `knockout`, `ractive` — current versions, still close to how
+  they looked in 2013
 - `vanillajs` — baseline
 
-`dojo` is excluded: it is the modern TypeScript rewrite, not era Dojo. There
-is no plain `backbone` implementation in the repo.
+Excluded because they look era but aren't: `dojo` (the modern TypeScript
+rewrite), `ember` (Ember's modern descendant — Glimmer, `.gjs` — nothing like
+Ember 1.x), `riot` (the custom-tag Riot from 2.0 on, 2015+, not the 2013
+library), `mithril` (2014, then rewritten in 1.0 and 2.0; the repo runs 2.x),
+and `marionette` (Marionette 5 without Backbone). There is no plain
+`backbone` implementation in the repo, and no AngularJS 1.x (the `angular-cf*`
+entries are modern Angular).
 
 ## The giraffe implementation
 
@@ -69,7 +75,7 @@ without asking. Run headed (no `--headless`), mouse outside the browser window:
 ```fish
 npm start  # terminal 1, repo root
 # terminal 2, repo root:
-npm run bench -- --chromeBinary /usr/bin/chromium --framework keyed/backbone.giraffe keyed/svelte keyed/svelte-classic keyed/react-hooks keyed/react-compiler-hooks keyed/marionette keyed/marionette-backbone keyed/knockout keyed/ember keyed/ractive keyed/riot keyed/mithril keyed/vanillajs
+npm run bench -- --chromeBinary /usr/bin/chromium --framework keyed/backbone.giraffe keyed/svelte keyed/react-hooks keyed/react-compiler-hooks keyed/marionette-backbone keyed/knockout keyed/ractive keyed/vanillajs
 npm run results
 ```
 
