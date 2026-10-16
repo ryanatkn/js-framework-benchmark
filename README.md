@@ -1,8 +1,10 @@
 # js-framework-benchmark
 
 > **This is a fork** of [krausest/js-framework-benchmark](https://github.com/krausest/js-framework-benchmark)
-> that benchmarks Backbone.Giraffe ([personal fork](https://github.com/ryanatkn/backbone.giraffe),
-> [original repo](https://github.com/barc/backbone.giraffe) with 101 stars from 2013, not adjusted for inflation), a library by this fork's author, against Svelte, React, Marionette, and frameworks of the same era.
+> that benchmarks Backbone.Giraffe, a library from 2013 by this fork's author,
+> ([personal fork](https://github.com/ryanatkn/backbone.giraffe),
+> [original repo](https://github.com/barc/backbone.giraffe) with 101 stars from 2013, not adjusted for inflation),
+> against Svelte, React, and frameworks of the bygone era including Backbone Marionette, Ractive, and Knockout.
 > See [CLAUDE.md](CLAUDE.md) for what's different and how to run it.
 
 This is a simple benchmark for several javascript frameworks. The benchmarks creates a large table with randomized entries and measures the time for various operations including rendering duration.
