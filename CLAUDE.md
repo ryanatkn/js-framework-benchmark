@@ -21,7 +21,8 @@ is no plain `backbone` implementation in the repo.
 
 ## The giraffe implementation
 
-Backbone.Giraffe dates from 2013; the benchmark runs its committed `dist/`
+Backbone.Giraffe dates from 2013 ([personal fork](https://github.com/ryanatkn/backbone.giraffe),
+[original repo](https://github.com/barc/backbone.giraffe)); the benchmark runs its committed `dist/`
 build as-is. `frameworks/keyed/backbone.giraffe/src/Main.js` uses
 `Giraffe.Contrib.FastCollectionView`: one `innerHTML` write for the whole
 collection, and per-row re-render on model `change` (`renderOnChange`), so
