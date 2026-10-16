@@ -1,0 +1,36 @@
+{
+  "name": "js-framework-benchmark-backbone.giraffe",
+  "version": "1.0.0",
+  "description": "Backbone.Giraffe v0.2.8",
+  "browserslist": "> 0.25%, not dead",
+  "main": "index.js",
+  "type": "module",
+  "js-framework-benchmark": {
+    "frameworkVersionFromPackage": "backbone.giraffe",
+    "frameworkHomeURL": "https://github.com/ryanatkn/backbone.giraffe",
+    "issues": [
+      772
+    ],
+    "language": "JavaScript",
+    "repoURL": "https://github.com/ryanatkn/backbone.giraffe"
+  },
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build-prod": "rollup -c --environment BUILD:production"
+  },
+  "dependencies": {
+    "backbone": "1.6.1",
+    "backbone.giraffe": "github:ryanatkn/backbone.giraffe#9df073c3d963e8aa87c7279afb2eab96a56327a8",
+    "jquery": "3.7.1",
+    "underscore": "1.13.8"
+  },
+  "devDependencies": {
+    "@babel/core": "7.25.2",
+    "@babel/preset-env": "7.25.4",
+    "@rollup/plugin-babel": "6.0.4",
+    "@rollup/plugin-commonjs": "26.0.1",
+    "@rollup/plugin-node-resolve": "15.2.3",
+    "@rollup/plugin-terser": "0.4.4",
+    "rollup": "4.21.2"
+  }
+}
