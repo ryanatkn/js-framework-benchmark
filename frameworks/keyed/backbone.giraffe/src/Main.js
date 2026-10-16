@@ -19,7 +19,6 @@ function buildData(count) {
     data[i] = {
       id: nextId++,
       label: adjectives[_random(adjectives.length)] + " " + colours[_random(colours.length)] + " " + nouns[_random(nouns.length)],
-      selected: false,
     };
   }
   return data;
@@ -27,14 +26,15 @@ function buildData(count) {
 
 // The FastCollectionView renders one HTML string per model, writes the whole
 // collection with a single `innerHTML`, and re-renders a single row when its
-// model fires `change` (`renderOnChange`), so selection and label updates go
-// through the model.
+// model fires `change` (`renderOnChange`), so label updates go through the
+// model. Selection is one `selectedId` on the collection; selecting re-renders
+// the old and new rows with `addOne`.
 const RowsView = Contrib.FastCollectionView.extend({
   el: "#tbody",
   modelTemplateStrategy() {
     const a = this.model.attributes;
     return (
-      (a.selected ? '<tr class="danger">' : "<tr>") +
+      (this.model.collection.selectedId === a.id ? '<tr class="danger">' : "<tr>") +
       '<td class="col-md-1">' + a.id +
       '</td><td class="col-md-4"><a class="lbl">' + a.label +
       '</a></td><td class="col-md-1"><a class="remove"><span class="remove glyphicon glyphicon-remove" aria-hidden="true"></span></a></td><td class="col-md-6"></td></tr>'
@@ -45,20 +45,21 @@ const RowsView = Contrib.FastCollectionView.extend({
     "click .remove": "onRemove",
   },
   initialize() {
-    this.selected = null;
+    this.collection.selectedId = null;
     this.listenTo(this.collection, "reset", () => {
-      this.selected = null;
+      this.collection.selectedId = null;
     });
   },
   onSelect(e) {
     const model = this.findModelByEl(e.target);
-    if (this.selected) this.selected.set("selected", false);
-    this.selected = model;
-    model.set("selected", true);
+    const prev = this.collection.get(this.collection.selectedId);
+    this.collection.selectedId = model.id;
+    if (prev) this.addOne(prev);
+    this.addOne(model);
   },
   onRemove(e) {
     const model = this.findModelByEl(e.target);
-    if (this.selected === model) this.selected = null;
+    if (this.collection.selectedId === model.id) this.collection.selectedId = null;
     this.collection.remove(model);
   },
   run(count) {
