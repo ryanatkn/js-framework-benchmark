@@ -28,7 +28,9 @@ function buildData(count) {
 // collection with a single `innerHTML`, and re-renders a single row when its
 // model fires `change` (`renderOnChange`), so label updates go through the
 // model. Selection is one `selectedId` on the collection; selecting re-renders
-// the old and new rows with `addOne`.
+// the old and new rows with `addOne`. Only the `<a>` carries `remove`: jQuery
+// delegation fires once per matching ancestor, and a second `onRemove` from the
+// detached span resolves index -1, which `collection.at` reads as the last row.
 const RowsView = Contrib.FastCollectionView.extend({
   el: "#tbody",
   modelTemplateStrategy() {
@@ -37,7 +39,7 @@ const RowsView = Contrib.FastCollectionView.extend({
       (this.model.collection.selectedId === a.id ? '<tr class="danger">' : "<tr>") +
       '<td class="col-md-1">' + a.id +
       '</td><td class="col-md-4"><a class="lbl">' + a.label +
-      '</a></td><td class="col-md-1"><a class="remove"><span class="remove glyphicon glyphicon-remove" aria-hidden="true"></span></a></td><td class="col-md-6"></td></tr>'
+      '</a></td><td class="col-md-1"><a class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td><td class="col-md-6"></td></tr>'
     );
   },
   events: {
