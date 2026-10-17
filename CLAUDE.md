@@ -70,7 +70,37 @@ npm run bench -- --smoketest --headless --chromeBinary /usr/bin/chromium --frame
 ## The real run
 
 Timed runs need a quiet machine — the user decides when. Don't start one
-without asking. Run headed (no `--headless`), mouse outside the browser window:
+without asking.
+
+The benchmark needs no internet: the server, the framework builds, the CSS,
+and the browser are all local, and the harness only talks to `localhost:8080`.
+Going offline also cuts Chromium's background traffic (component updates,
+safe browsing). So install and build everything first, while still online
+(repo root):
+
+```fish
+for f in backbone.giraffe svelte react-hooks react-compiler-hooks marionette-backbone knockout ractive vanillajs
+    npm ci --prefix frameworks/keyed/$f; and npm run build-prod --prefix frameworks/keyed/$f; or break
+end
+```
+
+Then quiet the machine. CPU governor and power profile already sit at
+`performance`; check with `powerprofilesctl get`. Stop the background services
+(their `.socket` units too, or they come back on demand), go offline, then
+close everything but the two terminals:
+
+```fish
+sudo systemctl stop libvirtd.service libvirtd.socket libvirtd-ro.socket libvirtd-admin.socket virtlogd.service virtlogd.socket virtlogd-admin.socket virtlockd.service virtlockd.socket virtlockd-admin.socket
+sudo systemctl stop postgresql@18-main avahi-daemon.service avahi-daemon.socket smartmontools cron
+sudo systemctl stop apt-daily.timer apt-daily-upgrade.timer man-db.timer fstrim.timer e2scrub_all.timer logrotate.timer dpkg-db-backup.timer
+systemctl --user stop localsearch-3  # GNOME file indexer, the worst offender
+nmcli networking off
+```
+
+A reboot restores all of it (each one is enabled), or start them again by
+hand: run the same commands with `start`, and `nmcli networking on`.
+
+Run headed (no `--headless`), mouse outside the browser window:
 
 ```fish
 npm start  # terminal 1, repo root
