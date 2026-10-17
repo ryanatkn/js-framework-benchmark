@@ -111,3 +111,21 @@ npm run results
 
 Results land in `webdriver-ts/results/`; the table is at
 `http://localhost:8080/webdriver-ts-results/dist/index.html`.
+
+## Results as Markdown
+
+`webdriver-ts/results-to-markdown.mjs` (fork-only, no dependencies) renders
+the result JSON as `RESULTS.md`, the quotable record of the run (repo root):
+
+```fish
+node webdriver-ts/results-to-markdown.mjs > RESULTS.md
+```
+
+It writes three tables: duration (mean ± stddev, factor vs. the fastest, CPU
+slowdown per row, and a geometric mean of the factors), memory, and
+size/startup. Columns sort by that geometric mean, a plain one over the mean
+ratios, so it can differ slightly from the results UI, which weights by
+confidence intervals. Benchmark labels and throttling factors are copied from
+`webdriver-ts/src/benchmarksCommon.ts`; the `_x16`/`_x8`/`_x2` suffixes in
+benchmark ids are not slowdowns. Cells stack values with `<br><sub>`, which
+GitHub renders.
